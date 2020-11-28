@@ -14,8 +14,10 @@ def write_data_to_csv(params)
     restaurants = [["名称","住所","営業日","電話番号"]]
     uri = URI.parse("https://api.gnavi.co.jp/RestSearchAPI/v3/")
     uri.query = URI.encode_www_form(PARAMS)  
+
     json_res = Net::HTTP.get uri
     
+    # JSON.load(response)
     response = JSON.load(json_res)
     
     if response.has_key?("error") then
@@ -27,9 +29,10 @@ def write_data_to_csv(params)
         restaurants.append(rest_info)
     end
     
-    File.open("restaurants_list.csv", "w") do |csv|
+    CSV.open("restaurants_list.csv", "w") do |csv|
         restaurants.each do |rest_info|
             csv << rest_info
+        end
     end
     return puts restaurants
 end
