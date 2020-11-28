@@ -2,12 +2,15 @@ require 'net/http'
 require 'json'
 require "csv"
 
+# フリーワード
+puts "場所を入力しエンターキーを押す"
+
 # 初期値
 KEYID = "c16b6b597258c69d1c64781aa0e15728" # 2021/02/20まで利用可能
 HIT_PER_PAGE = 100
 PREF = "PREF13"
 FREEWORD_CONDITION = 1
-FREEWORD = "渋谷駅"
+FREEWORD = $stdin.gets
 PARAMS = {"keyid":KEYID, "hit_per_page":HIT_PER_PAGE, "pref":PREF, "freeword_condition":FREEWORD_CONDITION, "freeword":FREEWORD}
 
 def write_data_to_csv(params)
